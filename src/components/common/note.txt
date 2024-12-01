@@ -1,0 +1,20 @@
+<BackDrop>
+                <Panel className={`h-[50vh] max-w-[30rem] m-auto`}>
+                    <div className="flex mt-5 justify-center items-center">
+                    <div className="icons">
+                        <RiDeleteBin3Line className='bg-red-500 size-12 p-3 border rounded-full inline'/>
+                    </div>
+                    <Title className={"text-center m-5 capitalize"}>are you sure you want to delete ?</Title>
+                    </div>
+                    <div className={'max-w-[25rem] m-auto'}> 
+                        <p>Are you sure you want to deactivate your account? All of your data will be permanently removed.
+                         This action cannot be undone.</p>
+
+                         <div className="flex gap-3 max-w-[10rem] m-auto my-6 buttons">
+                            <button onClick={()=>{setModal(false)}} className='bg-gray-200 py-3 px-5   rounded-md '>Cancel</button>
+                            <button className='bg-red-600 py-3 px-5  rounded-md'>Delete</button>
+                         </div>
+                    </div>
+                    
+                </Panel>
+            </BackDrop>

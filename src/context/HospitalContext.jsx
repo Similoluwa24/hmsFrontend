@@ -68,7 +68,7 @@ export const HospitalProvider = ({children})=>{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache', // Disable caching
+        'Cache-Control': 'no-cache', 
       },
       credentials: 'include',
     });

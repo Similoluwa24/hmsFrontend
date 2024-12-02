@@ -186,7 +186,8 @@ export const HospitalProvider = ({children})=>{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem("user")}`
+              'Authorization': `Bearer ${localStorage.getItem("user")}`,
+              'Cache-Control': 'no-cache',
             },
             credentials: 'include', // Sends cookies with the request
           });

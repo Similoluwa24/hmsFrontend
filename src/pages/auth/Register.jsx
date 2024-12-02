@@ -65,6 +65,7 @@ function Register() {
     } catch (error) {
       console.log({ message: error.message });
     }
+    await fetchUser();
   };
 
   const handleOtpSubmit = async (e) => {

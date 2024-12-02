@@ -16,7 +16,7 @@ function Receipt() {
     const fetchReceiptAndVerify = async () => {
       try {
         // Verify payment
-        const verifyRes = await fetch(`http://localhost:5000/payment/verify-payment?transaction_id=${transaction_id}`, {
+        const verifyRes = await fetch(`https://hmsbackend-4388.onrender.com/payment/verify-payment?transaction_id=${transaction_id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ function Receipt() {
         }
 
         // Fetch receipt details
-        const res = await fetch(`http://localhost:5000/payment/${id}`, {
+        const res = await fetch(`https://hmsbackend-4388.onrender.com/payment/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

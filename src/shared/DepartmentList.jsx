@@ -22,7 +22,7 @@ function DepartmentList() {
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
-        const res = await fetch('http://localhost:5000/department/add',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/department/add',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -55,7 +55,7 @@ function DepartmentList() {
         
     }
     const handleDelete = async() =>{
-        const res = await fetch(`http://localhost:5000/department/delete/${deleteId}`,{
+        const res = await fetch(`https://hmsbackend-4388.onrender.com/department/delete/${deleteId}`,{
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json'
@@ -88,7 +88,7 @@ function DepartmentList() {
     },[editDepartment])
     const editHandler = async(e)=>{
         e.preventDefault()
-        const res = await fetch(`http://localhost:5000/department/edit/${id}`,{
+        const res = await fetch(`https://hmsbackend-4388.onrender.com/department/edit/${id}`,{
             method:'PUT',
             headers:{
                 'Content-Type':'application/json'

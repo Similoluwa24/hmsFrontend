@@ -21,7 +21,7 @@ function AppointmentDetails() {
   
   const handleEdit = async (newStatus) => {
     setStatus(newStatus);
-    const res = await fetch(`http://localhost:5000/appointment/edit/${id}`, {
+    const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/edit/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

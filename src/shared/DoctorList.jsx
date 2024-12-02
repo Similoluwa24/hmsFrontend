@@ -32,7 +32,7 @@ function DoctorList() {
 
   }
   const handleDelete = async()=>{
-    const res = await fetch(`http://localhost:5000/user/delete/${deleteId}`,{
+    const res = await fetch(`https://hmsbackend-4388.onrender.com/user/delete/${deleteId}`,{
         method:'DELETE',
         headers:{
             'Content-Type':'application/json'

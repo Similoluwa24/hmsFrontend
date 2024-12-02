@@ -9,7 +9,7 @@ function PatientDiagnosis() {
   useEffect(() => {
     const fetchDiagnosis = async () => {
       try {
-        const res = await fetch('http://localhost:5000/diagnosis/user', {
+        const res = await fetch('https://hmsbackend-4388.onrender.com/diagnosis/user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

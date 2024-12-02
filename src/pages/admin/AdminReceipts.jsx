@@ -11,7 +11,7 @@ function AdminReceipts() {
   
     useEffect(() => {
       const fetchReceipts = async () => {
-        const res = await fetch(`http://localhost:5000/payment/${id}`, {
+        const res = await fetch(`https://hmsbackend-4388.onrender.com/payment/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

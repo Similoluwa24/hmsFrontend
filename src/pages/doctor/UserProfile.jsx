@@ -8,7 +8,7 @@ function UserProfile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('http://localhost:5000/user/me', {
+        const response = await fetch('https://hmsbackend-4388.onrender.com/user/me', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

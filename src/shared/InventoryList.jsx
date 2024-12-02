@@ -23,7 +23,7 @@ function InventoryList() {
 
     const submitHandler = async(e)=>{
         e.preventDefault()
-        const res = await fetch('http://localhost:5000/inventory/add',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/inventory/add',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -54,7 +54,7 @@ function InventoryList() {
         setOpenDelete(true)
     }
     const handleDelete =async()=>{
-        const res = await fetch(`http://localhost:5000/inventory/delete/${deleteId}`,{
+        const res = await fetch(`https://hmsbackend-4388.onrender.com/inventory/delete/${deleteId}`,{
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json'
@@ -88,7 +88,7 @@ function InventoryList() {
     },[editInventory])
     const editHandler = async(e)=>{
         e.preventDefault()
-        const res = await fetch(`http://localhost:5000/inventory/edit/${id}`,{
+        const res = await fetch(`https://hmsbackend-4388.onrender.com/inventory/edit/${id}`,{
             method:'PUT',
             headers:{
                 'Content-Type':'application/json'

@@ -21,7 +21,7 @@ function AppointmentList() {
   }
 
   const handleDelete = async() => {
-    const res = await fetch(`http://localhost:5000/appointment/delete/${appointmentIdToDelete}`,{
+    const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/delete/${appointmentIdToDelete}`,{
       method:'DELETE',
       headers:{
         'Content-Type':'application/json',

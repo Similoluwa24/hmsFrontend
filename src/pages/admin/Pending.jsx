@@ -8,7 +8,7 @@ function Pending() {
   useEffect(() => {
     const fetchPendingInvoices = async () => {
       try {
-        const res = await fetch('http://localhost:5000/prescription/pending', {
+        const res = await fetch('https://hmsbackend-4388.onrender.com/prescription/pending', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ function Pending() {
 // // Function to handle invoice generation
 // const handleGenerateInvoice = async (prescriptionId) => {
 //   try {
-//     const res = await fetch('http://localhost:5000/invoice/generate', {
+//     const res = await fetch('https://hmsbackend-4388.onrender.com/invoice/generate', {
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ function ForgotPwd() {
     const navigate = useNavigate()
     const handleSubmit = async(e)=>{
         e.preventDefault()
-        const res = await fetch('http://localhost:5000/user/forgotpwd',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/user/forgotpwd',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             credentials:'include',

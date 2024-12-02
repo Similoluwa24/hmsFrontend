@@ -8,7 +8,7 @@ function PrescriptionList() {
   const [loading, setLoading] = useState(true)
   useEffect(()=>{
     const fetchPrescription = async () => {
-      const res = await fetch('http://localhost:5000/prescription/doctor',{
+      const res = await fetch('https://hmsbackend-4388.onrender.com/prescription/doctor',{
         method:'GET',
         headers:{
           'Content-Type':'application/json'

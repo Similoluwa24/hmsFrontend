@@ -21,7 +21,7 @@ function DrSettings() {
    useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await fetch('http://localhost:5000/user/me', {
+        const res = await fetch('https://hmsbackend-4388.onrender.com/user/me', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ function DrSettings() {
     if(newpassword !== confirmPassword){
       showHide('error','Password doesnt Match!!')
     }else{
-      const res = await fetch('http://localhost:5000/user/updatepwd',{
+      const res = await fetch('https://hmsbackend-4388.onrender.com/user/updatepwd',{
         method:'PUT',
         headers:{
           'Content-Type':'application/json'
@@ -77,7 +77,7 @@ function DrSettings() {
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault()
-  //   const res = await fetch('http://localhost:5000/user/updateprofile',{
+  //   const res = await fetch('https://hmsbackend-4388.onrender.com/user/updateprofile',{
   //     method:'PUT',
   //     headers:{
   //       'Content-Type':'application/json'
@@ -110,7 +110,7 @@ function DrSettings() {
     console.log(formData);
     
     try {
-        const res = await fetch('http://localhost:5000/user/updateprofile', {
+        const res = await fetch('https://hmsbackend-4388.onrender.com/user/updateprofile', {
             method: 'PUT',
             credentials: 'include',
             body: formData,

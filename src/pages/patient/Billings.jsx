@@ -13,7 +13,7 @@ function Billings() {
     
     useEffect(()=>{
         const fetchInvoice = async () => {
-          const res = await fetch(`http://localhost:5000/invoice/admin/${showIn}`,{
+          const res = await fetch(`https://hmsbackend-4388.onrender.com/invoice/admin/${showIn}`,{
             method:'GET',
             headers:{
               'Content-Type':'application/json'
@@ -37,7 +37,7 @@ function Billings() {
 
       // const payUp = async (e) => {
       //   e.preventDefault()
-      //   const res = await fetch('http://localhost:5000/payment/initiate',{
+      //   const res = await fetch('https://hmsbackend-4388.onrender.com/payment/initiate',{
       //     method:'POST',
       //     headers:{
       //       'Content-Type':'application/json'
@@ -62,7 +62,7 @@ function Billings() {
       //   e.preventDefault();
       
       //   try {
-      //     const res = await fetch('http://localhost:5000/payment/initiate', {
+      //     const res = await fetch('https://hmsbackend-4388.onrender.com/payment/initiate', {
       //       method: 'POST',
       //       headers: {
       //         'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ function Billings() {
         e.preventDefault();
         
         try {
-          const res = await fetch('http://localhost:5000/payment/initiate', {
+          const res = await fetch('https://hmsbackend-4388.onrender.com/payment/initiate', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

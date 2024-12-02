@@ -24,7 +24,7 @@ function DrPrescription() {
     };
     const addPrescription = async (e) => {
         e.preventDefault()
-        const res = await fetch('http://localhost:5000/prescription/add',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/prescription/add',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

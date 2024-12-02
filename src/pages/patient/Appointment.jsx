@@ -31,7 +31,7 @@ function Appointment() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/appointment/add', {
+    const res = await fetch('https://hmsbackend-4388.onrender.com/appointment/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function Appointment() {
   }, [editAppointment]);
 
   const handleEdit = async () => {
-    const res = await fetch(`http://localhost:5000/appointment/edit/${id}`, {
+    const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/edit/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

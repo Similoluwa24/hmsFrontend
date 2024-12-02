@@ -26,7 +26,7 @@ function PharmacyList() {
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
-        const res = await fetch('http://localhost:5000/pharmacy/add',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/pharmacy/add',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -58,7 +58,7 @@ function PharmacyList() {
     } 
 
     const handleDelete = async()=> {
-        const res = await fetch(`http://localhost:5000/pharmacy/delete/${deleteId}`,{
+        const res = await fetch(`https://hmsbackend-4388.onrender.com/pharmacy/delete/${deleteId}`,{
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json'
@@ -98,7 +98,7 @@ function PharmacyList() {
    const editSubmitHandler = async(e)=>{
        e.preventDefault()
        try {
-           const res = await fetch(`http://localhost:5000/pharmacy/edit/${token}`,{
+           const res = await fetch(`https://hmsbackend-4388.onrender.com/pharmacy/edit/${token}`,{
                method:'PUT',
                headers:{
                    'Content-type':'application/json'

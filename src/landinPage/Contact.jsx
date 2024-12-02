@@ -18,7 +18,7 @@ function Contact() {
 
   const submitHandler = async(e)=>{
     e.preventDefault()
-    const res = await fetch('http://localhost:5000/contact/add',{
+    const res = await fetch('  https://hmsbackend-4388.onrender.com/contact/add',{
       method:'POST',
       headers:{
         'Content-Type':'application/json'

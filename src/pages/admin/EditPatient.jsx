@@ -34,7 +34,7 @@ function EditPatient() {
 
   const submitHandler = async(e)=>{
     e.preventDefault()
-    const res = await fetch(`http://localhost:5000/user/admin/update/${id}`,{
+    const res = await fetch(`https://hmsbackend-4388.onrender.com/user/admin/update/${id}`,{
       method:'PUT',
       headers:{
         'Content-Type':'application/json'

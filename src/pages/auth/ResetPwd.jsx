@@ -17,7 +17,7 @@ function ResetPwd() {
         return alert("Passwords do not match");
       }
   
-      const res = await fetch(`http://localhost:5000/user/resetPwd/${token}`, {
+      const res = await fetch(`https://hmsbackend-4388.onrender.com/user/resetPwd/${token}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: "include",

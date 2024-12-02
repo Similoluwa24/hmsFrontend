@@ -8,7 +8,7 @@ function PaymentHistory() {
     const [loading, setLoading] = useState(true)
     useEffect(()=>{
         const getPayment = async()=>{
-            const res = await fetch('http://localhost:5000/payment/me',{
+            const res = await fetch('https://hmsbackend-4388.onrender.com/payment/me',{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json'

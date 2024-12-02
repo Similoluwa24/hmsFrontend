@@ -19,28 +19,28 @@ function AdminHome() {
   
       try {
         const [appointmentRes, paymentRes,earningRes, userRes] = await Promise.all([
-          fetch('http://localhost:5000/appointment/latest', {
+          fetch('https://hmsbackend-4388.onrender.com/appointment/latest', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
             },
             credentials: 'include',
           }),
-          fetch('http://localhost:5000/payment/pay', {
+          fetch('https://hmsbackend-4388.onrender.com/payment/pay', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
             },
             credentials: 'include',
           }),
-          fetch('http://localhost:5000/payment/total-payments', {
+          fetch('https://hmsbackend-4388.onrender.com/payment/total-payments', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
             },
             credentials: 'include',
           }),
-          fetch('http://localhost:5000/user/latest', {
+          fetch('https://hmsbackend-4388.onrender.com/user/latest', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -59,6 +59,7 @@ function AdminHome() {
           console.error('Failed to fetch appointment:', appointmentData);
         } else {
           setApp(appointmentData);
+          
         }
   
         if (!paymentRes.ok) {

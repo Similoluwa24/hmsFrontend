@@ -32,7 +32,7 @@ function Register() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/user/signup', {
+      const res = await fetch('https://hmsbackend-4388.onrender.com/user/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

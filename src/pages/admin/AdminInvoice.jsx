@@ -27,7 +27,7 @@ function AdminInvoice() {
 useEffect(()=>{
   
   const invoice = async()=>{
-    const res = await fetch (`http://localhost:5000/prescription/${id}`,{
+    const res = await fetch (`https://hmsbackend-4388.onrender.com/prescription/${id}`,{
       method: 'GET',
       headers:{
         'Content-Type':'application/json'
@@ -71,7 +71,7 @@ useEffect(()=>{
   // Submit form
   const handleSubmit = async(e) => {
     e.preventDefault()
-    const res = await fetch('http://localhost:5000/invoice/add',{
+    const res = await fetch('https://hmsbackend-4388.onrender.com/invoice/add',{
       method:'POST',
       headers:{
         'Content-Type':'application/json'

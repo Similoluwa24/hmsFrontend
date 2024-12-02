@@ -54,7 +54,7 @@ function CreateDoctors() {
     formData.append('role', role);
 
     try {
-        const res = await fetch('http://localhost:5000/user/signup', {
+        const res = await fetch('  https://hmsbackend-4388.onrender.com/user/signup', {
             method: 'POST',
             credentials: 'include',
             body: formData,

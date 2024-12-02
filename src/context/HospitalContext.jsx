@@ -64,7 +64,7 @@ export const HospitalProvider = ({children})=>{
   
   const fetchUser = async () => {
   try {
-    const res = await fetch('http://localhost:5000/user/me', {
+    const res = await fetch('https://hmsbackend-4388.onrender.com/user/me', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export const HospitalProvider = ({children})=>{
     
     const fetchUserAll = async () => {
       try {
-        const res = await fetch('http://localhost:5000/user/admin',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/user/admin',{
           method:'GET',
           headers:{
             'Content-Type':'application/json'
@@ -119,7 +119,7 @@ export const HospitalProvider = ({children})=>{
     
     const getallDepartment = async ()=>{
       try {
-        const res = await fetch('http://localhost:5000/department/admin/get',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/department/admin/get',{
           method:'GET',
           headers:{
             'Content-Type':'application/json'
@@ -148,7 +148,7 @@ export const HospitalProvider = ({children})=>{
 
     const getallApointment = async () => {
       try {
-        const res = await fetch('http://localhost:5000/appointment/admin',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/appointment/admin',{
           method:'GET',
           headers:{
             'Content-Type':'application/json'
@@ -173,7 +173,7 @@ export const HospitalProvider = ({children})=>{
     
       const getAppointmentById = async () => {
         try {
-          const res = await fetch(`http://localhost:5000/appointment/get`, {
+          const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/get`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ export const HospitalProvider = ({children})=>{
       
         const getAppointmentbyDoctor = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/appointment/doctor`, {
+                const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/doctor`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -229,7 +229,7 @@ export const HospitalProvider = ({children})=>{
 
     const getallPharmacy = async () => {
       try {
-        const res = await fetch('http://localhost:5000/pharmacy/meds',{
+        const res = await fetch('https://hmsbackend-4388.onrender.com/pharmacy/meds',{
           method:'GET',
           headers:{
             'Content-Type':'application/json'
@@ -251,7 +251,7 @@ export const HospitalProvider = ({children})=>{
       }
     }
     const getInventory = async () => {
-      const res = await fetch(`http://localhost:5000/inventory/admin/get`,{
+      const res = await fetch(`https://hmsbackend-4388.onrender.com/inventory/admin/get`,{
         method:'GET',
         headers:{
           'Content-Type':"appication/json"

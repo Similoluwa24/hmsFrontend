@@ -9,7 +9,7 @@ function BillingList() {
 
     useEffect(()=>{
         const fetchInvoice =  async () => {
-            const res = await fetch ('http://localhost:5000/invoice/user',{
+            const res = await fetch ('https://hmsbackend-4388.onrender.com/invoice/user',{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json'

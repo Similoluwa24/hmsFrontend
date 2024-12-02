@@ -9,7 +9,7 @@ function AdminPayment() {
 
   useEffect(()=>{
     const fetchInvoice = async () => {
-      const res = await fetch('http://localhost:5000/invoice/admin',{
+      const res = await fetch('https://hmsbackend-4388.onrender.com/invoice/admin',{
         method:'GET',
         headers:{
           'Content-Type':'application/json'

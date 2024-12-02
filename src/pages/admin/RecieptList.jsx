@@ -9,7 +9,7 @@ function ReceiptList() {
 
   useEffect(() => {
     const fetchReceipts = async () => {
-      const res = await fetch('http://localhost:5000/payment/', {
+      const res = await fetch('https://hmsbackend-4388.onrender.com/payment/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

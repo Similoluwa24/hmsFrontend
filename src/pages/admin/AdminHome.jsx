@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaUserDoctor } from 'react-icons/fa6';
 import { CiCalendar, CiUser, CiWallet } from 'react-icons/ci';
-import { BsJournalBookmark } from 'react-icons/bs';
+
 import HospitalContext from '../../context/HospitalContext';
 import admin from '../../assets/morning-img-01.png';
 

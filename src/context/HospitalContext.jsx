@@ -21,6 +21,9 @@ export const HospitalProvider = ({children})=>{
     const [state, dispatch] =  useContext(AuthContext);
     const isAuthenticated = state.user !== null
     const token = Cookies.get('token') 
+    const tokens = localStorage.getItem('user')
+    // console.log(tokens);
+    
     const {alertInfo, showHide} = useAlert()
     useEffect(()=>{
          fetchUser()
@@ -69,14 +72,17 @@ export const HospitalProvider = ({children})=>{
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache', 
+        'Authorization': `Bearer ${localStorage.getItem("user")}`
       },
-      credentials: 'include',
+       credentials: 'include',
     });
+    console.log(localStorage.getItem("user"));
+    
     const data = await res.json();
     if (res.ok) {
       setUser(data.user);
     } else {
-      console.log({ message: data });
+      console.log(data);
     }
   } catch (error) {
     console.log({ message: error.message });
@@ -94,7 +100,8 @@ export const HospitalProvider = ({children})=>{
         const res = await fetch('https://hmsbackend-4388.onrender.com/user/admin',{
           method:'GET',
           headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Authorization': `${localStorage.getItem("user")}`
           },
           credentials: 'include', // This allows cookies to be sent with the request
         })
@@ -122,7 +129,8 @@ export const HospitalProvider = ({children})=>{
         const res = await fetch('https://hmsbackend-4388.onrender.com/department/admin/get',{
           method:'GET',
           headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Authorization': `${localStorage.getItem("user")}`
           },
           credentials:'include',
         })
@@ -151,7 +159,8 @@ export const HospitalProvider = ({children})=>{
         const res = await fetch('https://hmsbackend-4388.onrender.com/appointment/admin',{
           method:'GET',
           headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Authorization': `${localStorage.getItem("user")}`
           },
           credentials:'include',
         })
@@ -177,6 +186,7 @@ export const HospitalProvider = ({children})=>{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': `${localStorage.getItem("user")}`
             },
             credentials: 'include', // Sends cookies with the request
           });
@@ -203,7 +213,8 @@ export const HospitalProvider = ({children})=>{
                 const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/doctor`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `${localStorage.getItem("user")}`
                     },
                     credentials: 'include' // Ensure the backend supports credentials
                 });
@@ -232,7 +243,8 @@ export const HospitalProvider = ({children})=>{
         const res = await fetch('https://hmsbackend-4388.onrender.com/pharmacy/meds',{
           method:'GET',
           headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Authorization': `${localStorage.getItem("user")}`
           },
           credentials:'include',
         })
@@ -254,7 +266,8 @@ export const HospitalProvider = ({children})=>{
       const res = await fetch(`https://hmsbackend-4388.onrender.com/inventory/admin/get`,{
         method:'GET',
         headers:{
-          'Content-Type':"appication/json"
+          'Content-Type':"appication/json",
+          'Authorization': `${localStorage.getItem("user")}`
         },
         credentials:'include'
       })

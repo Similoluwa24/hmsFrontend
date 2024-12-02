@@ -17,47 +17,53 @@ function Login() {
   //     return <Navigate to="/" />
   // }
 
-  const submitHandler = async(e)=>{
-    e.preventDefault()
-    try{
-      const res = await fetch('https://hmsbackend-4388.onrender.com/user/login',{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
+  const submitHandler = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const res = await fetch('https://hmsbackend-4388.onrender.com/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        credentials: 'include',
-        body:JSON.stringify({
+        body: JSON.stringify({
           email,
-          password
-        })
-      })
-      const data = await res.json()
-
+          password,
+        }),
+      });
+  
+      const data = await res.json();
+  
       if (!res.ok) {
         console.log({ message: data });
-        showHide('error',data.errMessage) // Log error message from the response
+        showHide('error', data.errMessage); // Log error message from the response
       } else {
-        console.log(data); 
-        showHide('success',`Welcome ${data.user.last_name}`)// Log the data only when the request succeeds
+        console.log(data);
+        showHide('success', `Welcome ${data.user.last_name}`); // Show success notification
+  
+        // Save token to localStorage
         localStorage.setItem('user', data.token);
+  
+        // Update global state with user info
         dispatch({ type: 'LOGIN', payload: data });
-        Cookies.set('token', data.token, { expires: 1, path: '/' });
-      
-        // if(isAuthenticated){
-          if( data.user.role === "admin") {
-            navigate('/admin/home')
-          }else if(data.user.role === "doctor") {
-            navigate('/doctor/home')
-          }else
-          navigate('/user/home')
+  
+        // Redirect based on user role
+        if (data.user.role === 'admin') {
+          navigate('/admin/home');
+        } else if (data.user.role === 'doctor') {
+          navigate('/doctor/home');
+        } else {
+          navigate('/user/home');
         }
-
-
-        await fetchUser()  
-  } catch (error) {
-    console.log({ message: error.message });
-  }
-  }
+  
+        // Fetch user data to update context
+        await fetchUser();
+      }
+    } catch (error) {
+      console.log({ message: error.message });
+    }
+  };
+  
   return (
     <>
        

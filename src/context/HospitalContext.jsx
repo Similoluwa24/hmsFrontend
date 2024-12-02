@@ -101,7 +101,7 @@ export const HospitalProvider = ({children})=>{
           method:'GET',
           headers:{
             'Content-Type':'application/json',
-            'Authorization': `${localStorage.getItem("user")}`
+            'Authorization': `Bearer ${localStorage.getItem("user")}`
           },
           credentials: 'include', // This allows cookies to be sent with the request
         })
@@ -130,7 +130,7 @@ export const HospitalProvider = ({children})=>{
           method:'GET',
           headers:{
             'Content-Type':'application/json',
-            'Authorization': `${localStorage.getItem("user")}`
+            'Authorization': `Bearer ${localStorage.getItem("user")}`
           },
           credentials:'include',
         })
@@ -160,7 +160,7 @@ export const HospitalProvider = ({children})=>{
           method:'GET',
           headers:{
             'Content-Type':'application/json',
-            'Authorization': `${localStorage.getItem("user")}`
+            'Authorization': `Bearer ${localStorage.getItem("user")}`
           },
           credentials:'include',
         })
@@ -186,7 +186,7 @@ export const HospitalProvider = ({children})=>{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `${localStorage.getItem("user")}`
+              'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials: 'include', // Sends cookies with the request
           });
@@ -214,7 +214,7 @@ export const HospitalProvider = ({children})=>{
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `${localStorage.getItem("user")}`
+                        'Authorization': `Bearer ${localStorage.getItem("user")}`
                     },
                     credentials: 'include' // Ensure the backend supports credentials
                 });
@@ -244,7 +244,7 @@ export const HospitalProvider = ({children})=>{
           method:'GET',
           headers:{
             'Content-Type':'application/json',
-            'Authorization': `${localStorage.getItem("user")}`
+            'Authorization': `Bearer ${localStorage.getItem("user")}`
           },
           credentials:'include',
         })
@@ -267,7 +267,7 @@ export const HospitalProvider = ({children})=>{
         method:'GET',
         headers:{
           'Content-Type':"appication/json",
-          'Authorization': `${localStorage.getItem("user")}`
+          'Authorization': `Bearer ${localStorage.getItem("user")}`
         },
         credentials:'include'
       })

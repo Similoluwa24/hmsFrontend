@@ -37,7 +37,8 @@ function EditPatient() {
     const res = await fetch(`https://hmsbackend-4388.onrender.com/user/admin/update/${id}`,{
       method:'PUT',
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+         'Authorization': `Bearer ${localStorage.getItem("user")}`
       },
       credentials:'include',
       body:JSON.stringify({

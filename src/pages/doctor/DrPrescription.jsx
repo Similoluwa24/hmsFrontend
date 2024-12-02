@@ -27,7 +27,8 @@ function DrPrescription() {
         const res = await fetch('https://hmsbackend-4388.onrender.com/prescription/add',{
             method:'POST',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include',
             body:JSON.stringify({patient,dop,ailment,medication,dosage,notes,userId,doctor})

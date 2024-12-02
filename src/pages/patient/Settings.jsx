@@ -24,7 +24,8 @@ function Settings() {
         const res = await fetch('https://hmsbackend-4388.onrender.com/user/me', {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+             'Authorization': `Bearer ${localStorage.getItem("user")}`
           },
           credentials: 'include'
         });
@@ -59,7 +60,8 @@ function Settings() {
       const res = await fetch('https://hmsbackend-4388.onrender.com/user/updatepwd',{
         method:'PUT',
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+           'Authorization': `Bearer ${localStorage.getItem("user")}`
         },
         credentials:'include',
         body:JSON.stringify({oldpassword,newpassword})
@@ -80,7 +82,8 @@ function Settings() {
     const res = await fetch('https://hmsbackend-4388.onrender.com/user/updateprofile',{
       method:'PUT',
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+         'Authorization': `Bearer ${localStorage.getItem("user")}`
       },
       credentials:'include',
       body:JSON.stringify({first_name,last_name,email,phone,address,genotype,btype,dob})

@@ -81,6 +81,9 @@ function EditDoctors() {
       try {
           const res = await fetch(`https://hmsbackend-4388.onrender.com/user/admin/update/${id}`, {
               method: 'PUT',
+              headers:{
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
+              },
               credentials: 'include',
               body: formData,
           });

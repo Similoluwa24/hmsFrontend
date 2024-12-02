@@ -25,6 +25,7 @@ function AppointmentList() {
       method:'DELETE',
       headers:{
         'Content-Type':'application/json',
+         'Authorization': `Bearer ${localStorage.getItem("user")}`
       },
       credentials:"include",
       body:JSON.stringify({appointmentIdToDelete})

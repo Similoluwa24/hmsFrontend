@@ -11,7 +11,8 @@ function PaymentHistory() {
             const res = await fetch('https://hmsbackend-4388.onrender.com/payment/me',{
                 method:'GET',
                 headers:{
-                    'Content-Type':'application/json'
+                    'Content-Type':'application/json',
+                     'Authorization': `Bearer ${localStorage.getItem("user")}`
                 },
                 credentials:'include'
             })

@@ -29,7 +29,8 @@ function PharmacyList() {
         const res = await fetch('https://hmsbackend-4388.onrender.com/pharmacy/add',{
             method:'POST',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include',
             body:JSON.stringify({
@@ -61,7 +62,8 @@ function PharmacyList() {
         const res = await fetch(`https://hmsbackend-4388.onrender.com/pharmacy/delete/${deleteId}`,{
             method:'DELETE',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include',
             body:JSON.stringify({deleteId})
@@ -101,7 +103,8 @@ function PharmacyList() {
            const res = await fetch(`https://hmsbackend-4388.onrender.com/pharmacy/edit/${token}`,{
                method:'PUT',
                headers:{
-                   'Content-type':'application/json'
+                   'Content-type':'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("user")}`
                },
                credentials:'include',
                body:JSON.stringify({

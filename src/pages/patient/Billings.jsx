@@ -16,7 +16,8 @@ function Billings() {
           const res = await fetch(`https://hmsbackend-4388.onrender.com/invoice/admin/${showIn}`,{
             method:'GET',
             headers:{
-              'Content-Type':'application/json'
+              'Content-Type':'application/json',
+               'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include'
           })
@@ -103,6 +104,7 @@ function Billings() {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials: 'include',
             body: JSON.stringify({ invoiceId: showIn }),

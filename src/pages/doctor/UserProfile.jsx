@@ -12,6 +12,7 @@ function UserProfile() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+           'Authorization': `Bearer ${localStorage.getItem("user")}`
           },
           credentials: 'include', // Include cookies in the request
         });

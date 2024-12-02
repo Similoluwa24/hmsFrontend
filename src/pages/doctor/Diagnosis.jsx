@@ -17,7 +17,8 @@ function Diagnosis() {
         const res = await fetch('https://hmsbackend-4388.onrender.com/diagnosis/add',{
             method:'POST',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include',
             body:JSON.stringify({userId,diagnosis,doctor,symptoms,patient,notes})

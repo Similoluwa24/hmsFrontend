@@ -56,6 +56,9 @@ function CreateDoctors() {
     try {
         const res = await fetch('  https://hmsbackend-4388.onrender.com/user/signup', {
             method: 'POST',
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`, 
+          },
             credentials: 'include',
             body: formData,
         });

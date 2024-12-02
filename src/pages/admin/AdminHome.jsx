@@ -23,6 +23,8 @@ function AdminHome() {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${localStorage.getItem("user")}`
+              
             },
             credentials: 'include',
           }),
@@ -30,6 +32,7 @@ function AdminHome() {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials: 'include',
           }),
@@ -44,6 +47,7 @@ function AdminHome() {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+               'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials: 'include',
           }),

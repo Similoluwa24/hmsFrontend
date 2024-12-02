@@ -25,7 +25,8 @@ function DepartmentList() {
         const res = await fetch('https://hmsbackend-4388.onrender.com/department/add',{
             method:'POST',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include',
             body:JSON.stringify({
@@ -58,7 +59,8 @@ function DepartmentList() {
         const res = await fetch(`https://hmsbackend-4388.onrender.com/department/delete/${deleteId}`,{
             method:'DELETE',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include',
         })
@@ -91,7 +93,8 @@ function DepartmentList() {
         const res = await fetch(`https://hmsbackend-4388.onrender.com/department/edit/${id}`,{
             method:'PUT',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                 'Authorization': `Bearer ${localStorage.getItem("user")}`
             },
             credentials:'include',
             body:JSON.stringify({

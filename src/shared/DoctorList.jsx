@@ -13,18 +13,7 @@ function DoctorList() {
   const [modal, setModal] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
   const [search, setSearch] = useState('')
-  const notify = ()=>{
-    toast.success(`Doctor has been deleted`, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      });
-  }
+
   const handleDeleteClick = (id)=>{
     setModal(true)
     setDeleteId(id)
@@ -35,7 +24,8 @@ function DoctorList() {
     const res = await fetch(`https://hmsbackend-4388.onrender.com/user/delete/${deleteId}`,{
         method:'DELETE',
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+             'Authorization': `Bearer ${localStorage.getItem("user")}`
         },
         credentials:'include'
     })

@@ -7,7 +7,7 @@ import otp from '../../assets/otpp.png'
 
 function Register() {
   const [state, dispatch] = useContext(AuthContext);
-  const { isAuthenticated, fetchUser } = useContext(HospitalContext);
+  const { showHide } = useContext(HospitalContext);
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,28 +16,27 @@ function Register() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [otp, setOtp] = useState(''); // Updated to a single input for OTP
-  const [open, setOpen] = useState(false);
-  const [userData, setUserData] = useState(null); // Added state for user data
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
   const signupHandler = async (e) => {
     e.preventDefault();
-
+  
     // Ensure password and confirm password match
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-
+    
+    setLoading(true);
     try {
+      // Send user details to the signup endpoint
       const res = await fetch('https://hmsbackend-4388.onrender.com/user/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify({
           first_name,
           last_name,
@@ -49,43 +48,25 @@ function Register() {
           confirmPassword,
         }),
       });
-
+  
       const data = await res.json();
-
+  
       if (!res.ok) {
-        console.log({ message: data }); // Log error message from the response
+        console.error(data); 
+        showHide('error',data.message); 
       } else {
-        console.log(data); // Log the data only when the request succeeds
-        localStorage.setItem('user', JSON.stringify(data));
-        dispatch({ type: 'LOGIN', payload: data });
-        setOpen(true);
-        setUserData(data);
-        console.log(isAuthenticated);
+        showHide('success','Verification code sent to your email. Please check your inbox.');
+        navigate('/auth/otp');
+        
       }
     } catch (error) {
-      console.log({ message: error.message });
+      console.error('Signup error:', error.message);
+      showHide('error','An error occurred during signup. Please try again later.');
+    }finally{
+      setLoading(false) 
     }
-    await fetchUser();
   };
-
-  const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-
-    // Check if OTP entered matches the one in the database
-    if (otp === userData?.user?.verificationToken) {
-      if (userData.user.role === "admin") {
-        navigate('/admin/home');
-      } else if (userData.user.role === "doctor") {
-        navigate('/doctor/home');
-      } else {
-        navigate('/user/home');
-      }
-      await fetchUser();
-    } else {
-      alert('Incorrect verification code. Please try again!');
-    }
-    setOpen(false);
-  };
+  
 
   return (
     <>
@@ -198,12 +179,16 @@ function Register() {
           </div>
 
           <div className="text-center">
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition"
-            >
-              Sign Up
-            </button>
+          <button
+            type="submit"
+            className={`w-full py-3 rounded-lg text-white font-medium transition ${
+              loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+            }`}
+            disabled={loading}
+          >
+            {loading ? 'Signing Up...' : 'Sign Up'}
+          </button>
+
           </div>
 
           <div className="mt-4 text-center text-sm">
@@ -214,47 +199,6 @@ function Register() {
         </form>
         </div>
       </div>
-
-      {open && (
-        <Modals>
-          <div className="bg-white space-y-4 my-8 w-full h-full">
-            <div className="flex flex-col items-center">
-              <img src={otp} alt="" className="w-[150px] h-[150px]" />
-              <div className="txt">
-                <p id="helper-text-explanation" className="mt-2 text-lg font-semibold text-gray-500 dark:text-gray-400">
-                  Please introduce the code we sent to your email.
-                </p>
-                <p className="text-[#007cff] mt-2 text-lg font-semibold underline">
-                  {userData?.user?.email || 'No email available'}
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-center input">
-              <form onSubmit={handleOtpSubmit} className="max-w-sm mx-auto">
-                <label htmlFor="otp" className="block text-sm font-medium text-gray-700">
-                  Enter OTP
-                </label>
-                <input
-                  type="text"
-                  id="otp"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter 6-digit code"
-                  required
-                />
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Please do not refresh this page.</p>
-                <button
-                  type="submit"
-                  className="text-[#007cff] hover:text-white border bg-white w-full mt-5 border-[#007cff] hover:bg-[#007cff] font-medium rounded-lg text-sm px-5 py-2.5 text-center me-5 mb-2"
-                >
-                  Verify
-                </button>
-              </form>
-            </div>
-          </div>
-        </Modals>
-      )}
     </>
   );
 }

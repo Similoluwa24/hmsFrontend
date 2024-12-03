@@ -21,48 +21,50 @@ function Login() {
     e.preventDefault();
   
     try {
-      const res = await fetch('https://hmsbackend-4388.onrender.com/user/login', {
+      // Make the login request
+      const response = await fetch('https://hmsbackend-4388.onrender.com/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
   
-      const data = await res.json();
+      const result = await response.json();
   
-      if (!res.ok) {
-        console.log({ message: data });
-        showHide('error', data.errMessage); // Log error message from the response
-      } else {
-        console.log(data);
-        showHide('success', `Welcome ${data.user.last_name}`); // Show success notification
-  
-        // Save token to localStorage
-        localStorage.setItem('user', data.token);
-  
-        // Update global state with user info
-        dispatch({ type: 'LOGIN', payload: data });
-  
-        // Redirect based on user role
-        if (data.user.role === 'admin') {
-          navigate('/admin/home');
-        } else if (data.user.role === 'doctor') {
-          navigate('/doctor/home');
-        } else {
-          navigate('/user/home');
-        }
-  
-        // Fetch user data to update context
-        await fetchUser();
+      // Handle unsuccessful response
+      if (!response.ok) {
+        console.error({ message: result });
+        showHide('error', result.errMessage || 'Login failed'); // Display error notification
+        return;
       }
+  
+      // Handle successful response
+      const { user, token } = result;
+  
+      // Check if the user is verified
+      if (!user.verified) {
+        showHide('error', 'Please verify your account before logging in.');
+        navigate('/auth/otp'); // Redirect to verification page
+        return;
+      }
+      localStorage.setItem('user', token);
+      dispatch({ type: 'LOGIN', payload: result });
+      showHide('success', `Welcome ${user.last_name}`);
+      // Redirect user based on their role
+      const roleRedirects = {
+        admin: '/admin/home',
+        doctor: '/doctor/home',
+        patient: '/user/home',
+      };
+      navigate(roleRedirects[user.role]);
+      await fetchUser();
     } catch (error) {
-      console.log({ message: error.message });
+      console.error('Login Error:', error.message);
+      showHide('error', 'An unexpected error occurred. Please try again later.');
     }
   };
+  
   
   return (
     <>

@@ -77,11 +77,13 @@ function Appointment() {
     }
   }, [editAppointment]);
 
-  const handleEdit = async () => {
+  const handleEdit = async (e) => {
+    e.preventDefault()
     const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/edit/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+         'Authorization': `Bearer ${localStorage.getItem("user")}`
       },
       credentials: 'include',
       body: JSON.stringify({

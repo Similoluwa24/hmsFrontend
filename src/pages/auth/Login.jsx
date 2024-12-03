@@ -43,7 +43,7 @@ function Login() {
       const { user, token } = result;
   
       // Check if the user is verified
-      if (!user.verified) {
+      if (user.verified === 'false') {
         showHide('error', 'Please verify your account before logging in.');
         navigate('/auth/otp'); // Redirect to verification page
         return;

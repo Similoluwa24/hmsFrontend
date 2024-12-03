@@ -9,6 +9,8 @@ function OtpPage() {
     const [verificationToken, setVerificationToken] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const email = localStorage.getItem('email')
+  console.log(email);
   
     const handleVerification = async (e) => {
       e.preventDefault();
@@ -26,7 +28,7 @@ function OtpPage() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ verificationToken }),
+          body: JSON.stringify({email, token:verificationToken }),
         });
   
         const data = await res.json();
@@ -36,6 +38,7 @@ function OtpPage() {
         } else {
           showHide('success','Verification successful! Redirecting to login...');
           navigate('/auth/login');
+          localStorage.removeItem('email')
         }
       } catch (error) {
         console.error('Verification error:', error.message);

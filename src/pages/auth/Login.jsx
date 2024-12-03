@@ -12,6 +12,7 @@ function Login() {
   const [state, dispatch] = useContext(AuthContext)
   const {isAuthenticated, showHide,fetchUser} = useContext(HospitalContext)
   const navigate = useNavigate()
+  
 
   // if(isAuthenticated) {
   //     return <Navigate to="/" />
@@ -43,7 +44,7 @@ function Login() {
       const { user, token } = result;
   
       // Check if the user is verified
-      if (user.verified === 'false') {
+      if (result.user.verified === 'false') {
         showHide('error', 'Please verify your account before logging in.');
         navigate('/auth/otp'); // Redirect to verification page
         return;

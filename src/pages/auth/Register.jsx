@@ -55,6 +55,7 @@ function Register() {
         console.error(data); 
         showHide('error',data.message); 
       } else {
+        localStorage.setItem('email', email)
         showHide('success','Verification code sent to your email. Please check your inbox.');
         navigate('/auth/otp');
         

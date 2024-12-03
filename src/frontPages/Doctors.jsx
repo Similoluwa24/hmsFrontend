@@ -7,7 +7,7 @@ function Doctors() {
     const {doctors} = useContext(HospitalContext)
   return (
     <div>
-        <div className="bg-[whitesmoke] pb-7 doc">
+        <div className="bg-[whitesmoke] pb-7 doc" id='team'>
             <Header/>
             <div className="text-start  flex flex-col  justify-center px-6 banner-3">
                 <h1 className='text-white lg:text-7xl text-2xl font-[PT-Serif]'>Meet The Team</h1>

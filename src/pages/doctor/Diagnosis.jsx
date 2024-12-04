@@ -40,7 +40,7 @@ function Diagnosis() {
     <div className="flex items-center justify-between border-b pb-4 mb-6">
         <h2 className="text-3xl font-bold text-gray-900">New Diagnosis Form</h2>
         <Link 
-            to={'/user/patient-history'} 
+            to={'/doctor/diagnosis/list'} 
             className="bg-gradient-to-r from-green-500 to-teal-600 text-white px-5 py-2 rounded-lg shadow-md hover:from-green-600 hover:to-teal-700 transition duration-300"
         >
             Back to History
@@ -58,6 +58,15 @@ function Diagnosis() {
                 placeholder="Enter patient ID"
                 onChange={(e)=>{setUserId(e.target.value)}}
             />
+            {/* <select name="" id=""
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="#">Select User Name</option>
+                {
+                    patient.map((item, index)=>(
+                        <option key={index} value={item._id}>{`${item.first_name} ${item.last_name}`}</option>
+                    ))
+                }
+            </select> */}
         </div>
       
         

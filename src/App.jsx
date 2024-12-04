@@ -68,6 +68,7 @@ import PaymentHistory from './pages/patient/PaymentHistory'
 import HistoryDetails from './pages/patient/HistoryDetails'
 import Pending from './pages/admin/Pending'
 import AddVitals from './pages/doctor/AddVitals'
+import VitalTable from './pages/patient/VitalTable.jsx'
 
 
 function App() {
@@ -113,7 +114,8 @@ function App() {
               <Route path='payhistory' element={<PaymentHistory/>}/>
               <Route path='transaction/:id' element={<HistoryDetails/>}/>
               <Route path='profile' element={<UserProfile/>}/>
-           
+              <Route path='vitals' element={<VitalTable/>}/>
+              
               <Route path='transactions/:id' element={<Reciept/>} />
               <Route path='details/:id' element={<AppDetails/>} />
               <Route path='diagnosis' element={<PatientDiagnosis/>} />

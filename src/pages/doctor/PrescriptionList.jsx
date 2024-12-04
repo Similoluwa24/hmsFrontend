@@ -5,6 +5,7 @@ import HospitalContext from '../../context/HospitalContext';
 function PrescriptionList() {
   const {isAuthenticated} = useContext(HospitalContext)
   const [prescriptions, setPrescriptions] = useState([])
+  const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
   useEffect(()=>{
     const fetchPrescription = async () => {
@@ -50,7 +51,16 @@ function PrescriptionList() {
           </Link>
         </div>
       </div>
-
+    <div className="">
+        <input 
+        type="search" 
+        id="default-search" 
+        onChange={(e) => { setSearch(e.target.value) }} 
+        className="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+        placeholder="Search by Patient Name..." 
+        required 
+      />
+    </div>
       <div className="space-y-6">
         {loading ? (
           <div className="flex justify-center items-center py-6">
@@ -60,7 +70,9 @@ function PrescriptionList() {
           </div>
         </div>
         ):( 
-         prescriptions.map((prescription) => (
+         prescriptions.filter((item) => {
+          return search.toLowerCase() === "" ? item : item.patient.name.toLowerCase().includes(search);
+        }).map((prescription) => (
             <div key={prescription._id} className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
               <div className="flex justify-between">
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">

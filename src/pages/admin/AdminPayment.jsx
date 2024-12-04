@@ -36,12 +36,7 @@ function AdminPayment() {
     <div className="bg-gray-50 shadow-lg rounded-2xl p-8 max-w-5xl m-auto my-10">
       <div className="flex items-center justify-between border-b pb-4 mb-6">
         <h2 className="text-3xl font-bold text-gray-900">Invoice List</h2>
-        <Link
-          to={'/admin/invoice'}
-          className="bg-gradient-to-r from-green-400 to-blue-600 text-white px-5 py-2 rounded-lg shadow-md hover:from-green-500 hover:to-blue-700 transition duration-300"
-        >
-          Create Invoice
-        </Link>
+      
       </div>
       
       <div className="overflow-x-auto">
@@ -68,7 +63,7 @@ function AdminPayment() {
               {invoices.map((invoice) => (
                 <tr key={invoice.id} className="border-b hover:bg-gray-50">
                   <td className="py-3 px-6 text-gray-700">{invoice._id}</td>
-                  <td className="py-3 px-6 text-gray-700">{invoice.patientId.first_name} {invoice.patientId.last_name}</td>
+                  <td className="py-3 px-6 text-gray-700">{invoice?.patientId?.first_name} {invoice?.patientId?.last_name}</td>
                   <td className="py-3 px-6 text-gray-700">{new Date(invoice.issuedDate).toLocaleDateString()}</td>
                   <td className="py-3 px-6 text-gray-700">{invoice.totalCost}</td>
                   <td className={`py-3 px-6 text-gray-700 font-semibold ${

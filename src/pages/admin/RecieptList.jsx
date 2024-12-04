@@ -66,7 +66,7 @@ function ReceiptList() {
                 receipts.map((item, index) => (
                   <tr key={index} className="border-b">
                     <td className="py-2 px-4 text-gray-600">{item._id}</td>
-                    <td className="py-2 px-4 text-gray-600">{`${item.userId.first_name} ${item.userId.last_name}`}</td>
+                    <td className="py-2 px-4 text-gray-600">{`${item?.userId?.first_name} ${item?.userId?.last_name}`}</td>
                     <td className="py-2 px-4 text-gray-600">{new Date(item.paymentDate).toLocaleDateString()}</td>
                     <td className="py-2 px-4 text-gray-600">{`${item.currency} ${item.amount.toLocaleString()}`}</td>
                     <td className="py-2 px-4 text-gray-600">{item.status || 'Pending'}</td>

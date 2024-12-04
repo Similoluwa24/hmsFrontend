@@ -7,6 +7,7 @@ import { TbReportMedical } from 'react-icons/tb';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import useLogout from '../../hooks/useLogout';
+import { TbActivityHeartbeat } from "react-icons/tb";
 
 function DoctorSidebar() {
   const [state, dispatch] = useContext(AuthContext);
@@ -59,6 +60,15 @@ function DoctorSidebar() {
                 >
                   <BsJournalBookmark className="text-2xl text-[#007cff]" />
                   <span className="text-lg font-medium text-gray-700">Appointments</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="vitals"
+                  className="flex items-center space-x-4 p-3 rounded-xl bg-white hover:bg-[#e3f2fd] shadow-sm hover:shadow-md transition-all"
+                >
+                  <TbActivityHeartbeat className="text-2xl text-[#007cff]" />
+                  <span className="text-lg font-medium text-gray-700">Vitals</span>
                 </Link>
               </li>
               <li>

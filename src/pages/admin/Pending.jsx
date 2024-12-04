@@ -35,7 +35,15 @@ function Pending() {
 
   return (
     <div className="p-6 bg-gray-50 shadow-lg rounded-xl max-w-6xl mx-auto mt-8">
+      <div className="flex justify-between items-center">
       <h1 className="text-2xl font-bold text-gray-700 mb-4">Pending Invoices</h1>
+      <Link
+          to={'/admin/transactions'}
+          className="bg-gradient-to-r from-green-400 to-blue-600 text-white px-5 py-2 rounded-lg shadow-md hover:from-green-500 hover:to-blue-700 transition duration-300"
+        >
+          Invoice List
+        </Link>
+      </div>
 
       {pendingInvoices.length === 0 ? (
         <p className="text-gray-600">No pending invoices found.</p>

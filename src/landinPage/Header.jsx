@@ -29,11 +29,7 @@ function Header() {
           <Link to="/doctors" className="text-gray-600 hover:text-[#007cff] transition">Department</Link>
           <Link to="/gallery" className="text-gray-600 hover:text-[#007cff] transition">Gallery</Link>
           <Link to="/contact" className="text-gray-600 hover:text-[#007cff] transition">Contact</Link>
-          {isAuthenticated ? (
-            <span className="text-gray-600">Hi, {user?.first_name}</span>
-          ) : (
-            <Link to="/auth/login" className="text-gray-600 hover:text-[#007cff] transition">Log In</Link>
-          )}
+          <Link to="/auth/login" className="text-gray-600 hover:text-[#007cff] transition">Log In</Link>
         </nav>
 
         {/* Mobile Navigation */}

@@ -12,6 +12,7 @@ function Login() {
   const [state, dispatch] = useContext(AuthContext)
   const {isAuthenticated, showHide,fetchUser} = useContext(HospitalContext)
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   
 
   // if(isAuthenticated) {
@@ -20,7 +21,7 @@ function Login() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-  
+    setLoading(true)
     try {
       // Make the login request
       const response = await fetch('https://hmsbackend-4388.onrender.com/user/login', {
@@ -63,6 +64,8 @@ function Login() {
     } catch (error) {
       console.error('Login Error:', error.message);
       showHide('error', 'An unexpected error occurred. Please try again later.');
+    }finally{
+      setLoading(false)
     }
   };
   
@@ -102,8 +105,11 @@ function Login() {
           <div className="text-center">
             <button 
               type="submit" 
-              className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition">
-              Log In
+              disabled={loading}
+              className={`w-full py-3 rounded-lg text-white font-medium transition ${
+              loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+              }`}>
+              {loading ? 'Logging In' : 'Log In'}
             </button>
           </div>
 

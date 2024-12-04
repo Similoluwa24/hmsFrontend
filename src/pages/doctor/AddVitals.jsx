@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import HospitalContext from '../../context/HospitalContext';
 
 const AddVitals = () => {
+  const {showHide,patient} = useContext(HospitalContext)
   const [systolic, setSystolic] = useState('');
   const [diastolic, setDiastolic] = useState('');
   const [temperature, setTemperature] = useState('');
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
+  const [user, setUser] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,26 +22,28 @@ const AddVitals = () => {
       temperature,
       weight,
       height,
+      user
     };
 
     try {
-      const response = await fetch('/api/vitals/add-vitals', {
+      const response = await fetch('https://hmsbackend-4388.onrender.com/vitals/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("user")}`
         },
         credentials:'include',
         body: JSON.stringify(vitalsData),
       });
 
       if (response.ok) {
-        alert('Vitals added successfully!');
+        showHide('success','Vitals added successfully!');
       } else {
         const errorData = await response.json();
-        alert(`Error: ${errorData.message}`);
+        showHide('error',`Error: ${errorData.message}`);
       }
     } catch (error) {
-      alert('An error occurred while adding vitals.');
+      showHide('error','An error occurred while adding vitals.');
     }
   };
 
@@ -46,6 +51,17 @@ const AddVitals = () => {
     <div className="max-w-xl mx-auto mt-10">
       <h1 className="text-2xl font-bold text-center mb-6">Add Patient Vitals</h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
+        <div className="">
+          <label htmlFor="">Patient Name</label>
+          <select name="" id="" onChange={(e)=>{setUser(e.target.value)}} className="block w-full p-3 mb-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 transition duration-200" >
+            <option value="#">Choose Patient Name</option>
+            {
+              patient.map((item,index)=>(
+                <option value={item._id}>{`${item.first_name} ${item.last_name}`}</option>
+              ))
+            }
+          </select>
+        </div>
         <table className="table-auto w-full text-left border-collapse border border-gray-300">
           <thead>
             <tr>

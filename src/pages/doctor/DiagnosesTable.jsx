@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import HospitalContext from '../../context/HospitalContext';
 import { Link } from 'react-router-dom';
+import { FaRegEye } from 'react-icons/fa6';
 
 const DiagnosesTable = () => {
   const { user, isAuthenticated, showHide } = useContext(HospitalContext);
   const [diagnoses, setDiagnosis] = useState([]);
   const [loading, setLoading] = useState(true);  // New loading state
+  const [search, setSearch] = useState('')
   
   useEffect(() => {
     const fetchDiagnosis = async () => {
@@ -48,6 +50,16 @@ const DiagnosesTable = () => {
           </Link>
         </div>
       </div>
+        <div className="p-3">
+            <input 
+            type="search" 
+            id="default-search" 
+            onChange={(e) => { setSearch(e.target.value) }} 
+            className="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+            placeholder="Search by Patient Name..." 
+            required 
+          />
+        </div>
       {loading ? (  // Display loading state
       <div className="flex justify-center items-center py-6">
         <div className="flex items-center space-x-2">
@@ -60,25 +72,25 @@ const DiagnosesTable = () => {
         <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
           <thead className="bg-[#007cff] text-white">
             <tr>
-              <th className="px-4 py-2 text-left font-medium">Patient ID</th>
               <th className="px-4 py-2 text-left font-medium">Patient Name</th>
               <th className="px-4 py-2 text-left font-medium">Age</th>
-              <th className="px-4 py-2 text-left font-medium">Relationship</th>
+              {/* <th className="px-4 py-2 text-left font-medium">Relationship</th> */}
               <th className="px-4 py-2 text-left font-medium">Diagnosis</th>
               <th className="px-4 py-2 text-left font-medium">Symptoms</th>
-              <th className="px-4 py-2 text-left font-medium">Notes</th>
+              <th className="px-4 py-2 text-left font-medium">Action</th>
             </tr>
           </thead>
           <tbody className="text-gray-700">
-            {diagnoses.map((diagnosis, index) => (
+            {diagnoses.filter((item) => {
+            return search.toLowerCase() === "" ? item : item.patient.name.toLowerCase().includes(search);
+          }).map((diagnosis, index) => (
               <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.userId._id}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.patient.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.patient.age}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.patient.relationship || '-'}</td>
+                {/* <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.patient.relationship || '-'}</td> */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.diagnosis}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.symptoms}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">{diagnosis.notes}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm"><Link to={`/doctor/diagnosis/${diagnosis._id}`}><FaRegEye/></Link></td>
               </tr>
             ))}
           </tbody>

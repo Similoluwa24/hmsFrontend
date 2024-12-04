@@ -4,6 +4,7 @@ import { CiLogout } from 'react-icons/ci';
 import { IoHomeOutline, IoReceiptOutline, IoSettingsOutline } from 'react-icons/io5';
 import { MdLocalHospital } from 'react-icons/md';
 import { TbReportMedical } from "react-icons/tb";
+import { TbActivityHeartbeat } from "react-icons/tb";
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import Cookies from 'js-cookie';
@@ -39,15 +40,21 @@ function DoctorSidebar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to='prescription/list' className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#f0f4ff] hover:text-[#0056b3] transition-all">
-                            <IoReceiptOutline className="text-xl" />
-                            <span className="text-sm md:text-base hidden lg:inline">Prescription</span>
+                        <Link to='addvitals' className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#f0f4ff] hover:text-[#0056b3] transition-all">
+                            <TbActivityHeartbeat className="text-xl" />
+                            <span className="text-sm md:text-base hidden lg:inline">Vital Signs</span>
                         </Link>
                     </li>
                     <li>
                         <Link to='diagnosis/list' className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#f0f4ff] hover:text-[#0056b3] transition-all">
                             <TbReportMedical className="text-xl" />
                             <span className="text-sm md:text-base hidden lg:inline">Diagnosis</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='prescription/list' className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#f0f4ff] hover:text-[#0056b3] transition-all">
+                            <IoReceiptOutline className="text-xl" />
+                            <span className="text-sm md:text-base hidden lg:inline">Prescription</span>
                         </Link>
                     </li>
                     <li>

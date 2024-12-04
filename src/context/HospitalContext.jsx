@@ -3,6 +3,7 @@ import { AuthContext } from "./AuthContext";
 const HospitalContext = createContext()
 import Cookies from 'js-cookie'
 import useAlert from "../hooks/useAlert";
+import { useNavigate } from "react-router-dom";
 
 export const HospitalProvider = ({children})=>{
   // const [doctors, setDoctors] = useState([])
@@ -22,6 +23,7 @@ export const HospitalProvider = ({children})=>{
     const isAuthenticated = state.user !== null
     const token = Cookies.get('token') 
     const tokens = localStorage.getItem('user')
+    const navigate = useNavigate()
     // console.log(tokens);
     
     const {alertInfo, showHide} = useAlert()
@@ -79,9 +81,14 @@ export const HospitalProvider = ({children})=>{
     console.log(localStorage.getItem("user"));
     
     const data = await res.json();
+
     if (res.ok) {
       setUser(data.user);
-    } else {
+    } else if(data.message === 'Invalid or expired token') {
+      showHide('error','Session Expired please re-login')
+      navigate('/auth/login')
+    }else{
+      
       console.log(data);
     }
   } catch (error) {
@@ -89,11 +96,7 @@ export const HospitalProvider = ({children})=>{
   }
 };
 
-    
-    // If you want to log the state when it changes:
-    // useEffect(() => {
-    //   console.log(user);
-    // }, [user]);
+  
     
     const fetchUserAll = async () => {
       try {
@@ -137,22 +140,14 @@ export const HospitalProvider = ({children})=>{
         const data = await res.json()
         if (!res.ok) {
           console.log(data);
-          showHide('error',data.errMessage)
         } else {
-          setDepartment(data.findDept)    
-          // console.log(data);
-             
-          
+          setDepartment(data.findDept)      
         }
       } catch (error) {
         console.log({message:error.message});
         
-      }
-        
+      }   
     }
-   
-
- 
 
     const getallApointment = async () => {
       try {
@@ -196,7 +191,6 @@ export const HospitalProvider = ({children})=>{
   
           if (!res.ok) {
             console.log(data);
-            showHide('error', data.errMessage); // Show error if response is not ok
           } else {
             setAppoint(data.findApp); // Set the appointment data in state
             // console.log(data);
@@ -223,8 +217,7 @@ export const HospitalProvider = ({children})=>{
                 const data = await res.json();
     
                 if (!res.ok) {
-                    // console.error('Error response:', data);
-                    // showHide('error', data.message || data.errMessage);
+                    console.error('Error response:', data);
                 } else {
                     setAppointmentbyDoctor(data.appointments); // Adjust based on the data structure
                     // console.log('Appointments data:', data);
@@ -233,11 +226,7 @@ export const HospitalProvider = ({children})=>{
                 console.error('Fetch error:', error);
             }
         };
-        
-    
-    
-      
-      
+
 
     const getallPharmacy = async () => {
       try {
@@ -275,7 +264,7 @@ export const HospitalProvider = ({children})=>{
       const data = await res.json()
       if (!res.ok) {
         console.log(data);
-        showHide('error',data.errMessage)
+        // showHide('error',data.errMessage)
       } else {
         setInventory(data.data)
         // console.log(data);

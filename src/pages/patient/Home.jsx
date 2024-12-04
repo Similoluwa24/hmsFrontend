@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CiDroplet } from "react-icons/ci";
 import { BsHeartPulse, BsThermometer } from "react-icons/bs";
 import { IoPersonCircleOutline } from "react-icons/io5";
@@ -13,6 +13,31 @@ import Appointment from './Appointment';
 
 function Home() {
   const { user, isAuthenticated } = useContext(HospitalContext);
+  const [vitals, setVitals] = useState(null)
+  const [loading, setLoading] = useState(true)
+  useEffect(()=>{
+      const getVitals = async()=>{
+          const res = await fetch('https://hmsbackend-4388.onrender.com/vitals/latest',{
+              method:'GET',
+              headers:{
+                  'Content-Type':'application/json',
+                   'Authorization': `Bearer ${localStorage.getItem("user")}`
+              },
+              credentials:'include'
+          })
+          const data = await res.json()
+          console.log(data);
+          if (!res.ok) {
+              console.log(data);
+              showHide('error','An error has occured!')
+          } else {
+              setVitals(data)
+              setLoading(false)
+          }
+          
+      }
+      getVitals()
+  },[])
 
   return (
     <div className="bg-[whitesmoke] p-4 sm:space-y-4">
@@ -49,14 +74,14 @@ function Home() {
         <div className="flex flex-col justify-center items-center rounded-md text-center h-[150px] w-[200px] text-gray-500 border-t-2 border-[#007cff] bg-white cursor-pointer transition-transform hover:scale-105">
           <img src={hr} className="h-12" alt="Blood Pressure" />
           <p className="text-sm font-semibold">Blood Pressure</p>
-          <p className="text-lg font-bold text-[#007cff] font-[poppins] tracking-wide">{`110/90`}</p>
+          <p className="text-lg font-bold text-[#007cff] font-[poppins] tracking-wide">{vitals && vitals.bloodPressure.systolic}/{vitals && vitals.bloodPressure.diastolic}</p>
         </div>
 
         {/* Temperature Card */}
         <div className="flex flex-col justify-center items-center rounded-md text-center h-[150px] w-[200px] text-gray-500 border-t-2 border-[#007cff] bg-white cursor-pointer transition-transform hover:scale-105">
           <img src={thermo} className="w-16 h-16" alt="Temperature" />
           <p className="text-sm font-semibold">Temperature</p>
-          <p className="text-lg font-bold text-[#007cff] font-[poppins] tracking-wide">{`36°C`}</p>
+          <p className="text-lg font-bold text-[#007cff] font-[poppins] tracking-wide">{vitals && vitals.temperature}°C</p>
         </div>
 
         {/* Genotype Card */}
@@ -70,7 +95,7 @@ function Home() {
       {/* Appointments and Prescriptions Section */}
       <div className="flex flex-col lg:flex-row gap-4 mx-auto max-w-6xl">
         {/* Appointments */}
-        <div className="w-full lg:w-2/3 h-auto rounded-md bg-white shadow-sm">
+        <div className="w-full h-auto rounded-md bg-white shadow-sm">
           <p className="p-4 text-center text-gray-500 font-semibold font-[poppins] tracking-wide">
             Appointments
           </p>
@@ -80,7 +105,7 @@ function Home() {
         </div>
 
         {/* Prescriptions */}
-        <div className="w-full lg:w-1/3 h-auto rounded-md bg-white shadow-sm">
+        {/* <div className="w-full lg:w-1/3 h-auto rounded-md bg-white shadow-sm">
           <p className="p-4 text-center text-gray-500 font-semibold font-[poppins] tracking-wide">
             My Prescriptions
           </p>
@@ -98,7 +123,7 @@ function Home() {
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     </div>
   );

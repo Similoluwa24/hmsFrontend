@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import HospitalContext from '../../context/HospitalContext'
+import { Link } from 'react-router-dom'
 
 function VitalTable() {
     const {showHide} = useContext(HospitalContext)
  const [vitals, setVitals] = useState([])
  const [loading, setLoading] = useState(true)
  useEffect(()=>{
-     const getPayment = async()=>{
-         const res = await fetch('https://hmsbackend-4388.onrender.com/vitals/view',{
+     const getVitals = async()=>{
+         const res = await fetch('https://hmsbackend-4388.onrender.com/vitals/me',{
              method:'GET',
              headers:{
                  'Content-Type':'application/json',
@@ -21,12 +22,12 @@ function VitalTable() {
              console.log(data);
              showHide('error','An error has occured!')
          } else {
-             setVitals(data)
+             setVitals(data.data)
              setLoading(false)
          }
          
      }
-     getPayment()
+     getVitals()
  },[])
 
   return (
@@ -45,25 +46,30 @@ function VitalTable() {
             </tr>
             </thead>
             <tbody>
-            {/* Replace the rows below with dynamic data */}
-            {vitals.map((vital, index) => (
-                <tr key={index} className="hover:bg-gray-50 border-b border-gray-300">
-                <td className="py-3 px-6 text-sm text-gray-700">{vital.date}</td>
-                <td className="py-3 px-6 text-sm text-gray-700">{vital.bp}</td>
-                <td className="py-3 px-6 text-sm text-gray-700">{vital.temperature}°C</td>
-                <td className="py-3 px-6 text-sm text-gray-700">{vital.weight} kg</td>
-                <td className="py-3 px-6 text-sm text-gray-700">{vital.height} cm</td>
-               
-                <td className="py-3 px-6 text-center">
-                    <button 
-                    onClick={() => viewVitals(vital.id)} 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
-                    >
-                    View Details
-                    </button>
-                </td>
-                </tr>
-            ))}
+            {
+                loading ? (
+                    <div className="">Loading ....</div>
+                ):(
+                    vitals.map((vital, index) => (
+                        <tr key={index} className="hover:bg-gray-50 border-b border-gray-300">
+                        <td className="py-3 px-6 text-sm text-gray-700">{new Date(vital.createdAt).toLocaleDateString()}</td>
+                        <td className="py-3 px-6 text-sm text-gray-700">{`${vital.bloodPressure.systolic}/${vital.bloodPressure.diastolic}`}</td>
+                        <td className="py-3 px-6 text-sm text-gray-700">{vital.temperature}°C</td>
+                        <td className="py-3 px-6 text-sm text-gray-700">{vital.weight} kg</td>
+                        <td className="py-3 px-6 text-sm text-gray-700">{vital.height} cm</td>
+                       
+                        <td className="py-3 px-6 text-center">
+                            <Link 
+                            to={`/user/vitals/${vital._id}`}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+                            >
+                            View Details
+                            </Link>
+                        </td>
+                        </tr>
+                    ))
+                )
+            }
             </tbody>
         </table>
         </div>

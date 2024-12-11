@@ -51,7 +51,7 @@ function DrSettings() {
     };
 
     fetchUserData();
-  }, [showHide]);
+  }, []);
   const submitHandler = async (e) => {
     e.preventDefault()
     if(newpassword !== confirmPassword){

@@ -84,8 +84,8 @@ export const HospitalProvider = ({children})=>{
 
     if (res.ok) {
       setUser(data.user);
-    } else if(data.message === 'Invalid or expired token') {
-      // showHide('error','Session Expired please re-login')
+    } else if(data.message === 'Token has expired. Please log in again.') {
+       //showHide('error','Session Expired please re-login')
       navigate('/auth/login')
     }else{
       

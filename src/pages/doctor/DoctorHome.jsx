@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FiUser , FiClipboard, FiCalendar, FiUserCheck, FiFolder } from 'react-icons/fi';
+import { FiUser , FiClipboard, FiCalendar, FiUserCheck, FiFolder, FiActivity, FiHeart, FiFileText } from 'react-icons/fi';
 import doc from '../../assets/doc.png';
 import HospitalContext from '../../context/HospitalContext';
 
@@ -25,51 +25,52 @@ function DoctorHome() {
       </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Patient Management */}
-        <Link to="/patients" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-800">Patient Management</h2>
-            <FiUser  className="text-3xl md:text-4xl text-blue-500" />
-          </div>
-          <p className="text-gray-600">View, manage, and update patient records easily.</p>
-        </Link>
+  {/* Vital Signs */}
+  <Link to="/doctor/addvitals" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-lg md:text-xl font-semibold text-gray-800">Vital Signs</h2>
+      <FiActivity className="text-3xl md:text-4xl text-blue-500" />
+    </div>
+    <p className="text-gray-600">Monitor and record patient vital signs efficiently.</p>
+  </Link>
 
-        {/* Appointments */}
-        <Link to="/doctor/appointment" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-800">Appointments</h2>
-            <FiCalendar className="text-3xl md:text-4xl text-green-500" />
-          </div>
-          <p className="text-gray-600">Manage your schedule and upcoming appointments.</p>
-        </Link>
+  {/* Appointments */}
+  <Link to="/doctor/appointment" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-lg md:text-xl font-semibold text-gray-800">Appointments</h2>
+      <FiCalendar className="text-3xl md:text-4xl text-green-500" />
+    </div>
+    <p className="text-gray-600">Manage your schedule and upcoming appointments.</p>
+  </Link>
 
-        {/* Prescriptions */}
-        <Link to="/doctor/prescription/list" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-800">Prescriptions</h2>
-            <FiClipboard className="text-3xl md:text-4xl text-red-500" />
-          </div>
-          <p className="text-gray-600">Create and manage patient prescriptions efficiently.</p>
-        </Link>
+  {/* Prescriptions */}
+  <Link to="/doctor/prescription/list" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-lg md:text-xl font-semibold text-gray-800">Prescriptions</h2>
+      <FiClipboard className="text-3xl md:text-4xl text-red-500" />
+    </div>
+    <p className="text-gray-600">Create and manage patient prescriptions efficiently.</p>
+  </Link>
 
-        {/* Patient Requests */}
-        <Link to="/requests" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-800">Patient Requests</h2>
-            <FiUser Check className="text-3xl md:text-4xl text-purple-500" />
-          </div>
-          <p className="text-gray-600">Review and respond to patient consultation requests.</p>
-        </Link>
+  {/* Diagnosis */}
+  <Link to="/doctor/diagnosis/list" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-lg md:text-xl font-semibold text-gray-800">Diagnosis</h2>
+      <FiHeart className="text-3xl md:text-4xl text-purple-500" />
+    </div>
+    <p className="text-gray-600">Record and review patient diagnoses with ease.</p>
+  </Link>
 
-        {/* Reports */}
-        <Link to="/reports" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-800">Reports</h2>
-            <FiFolder className="text-3xl md:text-4xl text-yellow-500" />
-          </div>
-          <p className="text-gray-600">Access detailed reports and patient analytics.</p>
-        </Link>
-      </div>
+  {/* Reports */}
+  {/* <Link to="/reports" className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-lg md:text-xl font-semibold text-gray-800">Reports</h2>
+      <FiFileText className="text-3xl md:text-4xl text-yellow-500" />
+    </div>
+    <p className="text-gray-600">Access detailed reports and patient analytics.</p>
+  </Link> */}
+</div>
+
     </div>
   );
 };

@@ -17,20 +17,28 @@ function EditPatient() {
   const navigate = useNavigate()
   const id = editPatient.items.item._id
 
-  useEffect(()=>{
+  useEffect(() => {
     if (editPatient.edit === true) {
-      setFirstName(editPatient.items.item.first_name)
-      setLastName(editPatient.items.item.last_name)
-      setGender(editPatient.items.item.gender)
-      setDob(editPatient.items.item.dob)
-      setPhone(editPatient.items.item.phone)
-      setEmail(editPatient.items.item.email)
-      setAddress(editPatient.items.item.address)
-      setnhis(editPatient.items.item.NHIS)
-      // setPassword(editPatient.items.item.password)
-      // setConfirmPassword(editPatient.items.item.confirmPassword)
+      setFirstName(editPatient.items.item.first_name);
+      setLastName(editPatient.items.item.last_name);
+      setGender(editPatient.items.item.gender);
+      setDob(formatDate(editPatient.items.item.dob)); // Format date here
+      setPhone(editPatient.items.item.phone);
+      setEmail(editPatient.items.item.email);
+      setAddress(editPatient.items.item.address);
+      setnhis(editPatient.items.item.NHIS);
     }
-  },[editPatient])
+  }, [editPatient]);
+  
+  // Helper function to format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString); // Convert to Date object
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  
 
   const submitHandler = async(e)=>{
     e.preventDefault()
@@ -67,7 +75,7 @@ function EditPatient() {
   return (
     <>
     <div className="">
-    <div className=" lg:mx-5 lg:min-w-[63rem] mt-4 form w-full">
+    <div className=" lg:mx-5 lg:max-w-[60rem] mt-4 form w-full">
             <form action="" onSubmit={submitHandler} className='space-y-8'>
 
                 <div className="lg:flex justify-between mx-4 className">

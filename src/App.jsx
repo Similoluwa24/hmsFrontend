@@ -70,6 +70,10 @@ import Pending from './pages/admin/Pending'
 import AddVitals from './pages/doctor/AddVitals'
 import VitalTable from './pages/patient/VitalTable.jsx'
 import Table from './pages/patient/Table.jsx'
+import AdminHeader from './components/admin/AdminHeader.jsx'
+import DetailsDoctor from './pages/doctor/DetailsDoctor.jsx'
+import PharmacyRecords from './pages/admin/PharmacyRecords.jsx'
+import EditPharmacy from './pages/admin/EditPharmacy.jsx'
 
 
 function App() {
@@ -131,6 +135,7 @@ function App() {
               } >
                 <Route path='sidebar' element={<AdminSidebar/>} />
                 <Route path='home' element={<AdminHome/>} />
+                <Route path='header' element={<AdminHeader/>} />
                 <Route path='details/:id' element={<AdminDetails/>} />
                 <Route path='details/doctor/:id' element={<DocDetails/>} />
                 <Route path='createdoc' element={<CreateDoctors/>}/>
@@ -147,11 +152,15 @@ function App() {
                 <Route path='allpharm' element={<AdminPharmacy/>}/>
                 <Route path='alladmin' element={<AllAdmin/>}/>
                 <Route path='pending' element={<Pending/>}/>
+                <Route path='records' element={<PharmacyRecords/>}/>
                 <Route path='transactions' element={<AdminPayment/>}/>
                 <Route path='invoice/:id' element={<AdminInvoice/>}/>
                 <Route path='reciept' element={<RecieptList/>}/>
                 <Route path='receipt/:id' element={<AdminReceipts/>}/>
                 <Route path='invoices/:id' element={<InvoiceDetail/>}/>
+                <Route path="/admin/edit-pharmacy/:id" element={<EditPharmacy/>} />
+
+
             </Route>
 
             <Route path='/doctor' element={
@@ -169,6 +178,8 @@ function App() {
               <Route path='diagnosis' element={<Diagnosis/>} />
               <Route path='details/:id' element={<AppointmentDetails/>} />
               <Route path='diagnosis/list' element={<DiagnosesTable/>} />
+              <Route path='detailsdoc/:id' element={<DetailsDoctor/>} />
+
 
             </Route>
           </Routes>

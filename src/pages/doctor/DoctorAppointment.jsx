@@ -24,6 +24,7 @@ function DoctorAppointment() {
     <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
       <thead className="bg-[#007cff] text-white">
         <tr>
+          <th className="px-4 py-2 text-left font-medium">Patient Id</th>
           <th className="px-4 py-2 text-left font-medium">Patient Name</th>
           <th className="px-4 py-2 text-left font-medium">Date</th>
           <th className="px-4 py-2 text-left font-medium">Time</th>
@@ -37,6 +38,7 @@ function DoctorAppointment() {
     return search.toLowerCase() === "" ? item : item.user.first_name.toLowerCase().includes(search) || item.user.last_name.toLowerCase().includes(search)
   }).map((appointment, index) => (
     <tr key={index} className="hover:bg-gray-50 border-b">
+      <td className="px-4 py-3 text-gray-800 "><Link className='hover:underline hover:cursor-pointer' to={`/doctor/detailsdoc/${appointment.user._id}`}>{appointment.user.uniqueId}</Link></td>
       <td className="px-4 py-3 text-gray-800">
         {appointment.user.first_name} {appointment.user.last_name}
       </td>

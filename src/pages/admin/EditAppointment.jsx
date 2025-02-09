@@ -20,13 +20,22 @@ function EditAppointment() {
         setLastName(editAppointment.items.item.last_name)
         setEmail(editAppointment.items.item.email)
         setDoctor(editAppointment.items.item.doctor)
-        setDate(editAppointment.items.item.date)
+        setDate(formatDate(editAppointment.items.item.date))
         setTime(editAppointment.items.item.time)
         setMessage(editAppointment.items.item.message)
         setStatus(editAppointment.items.item.status)
     },[editAppointment]);
     
     
+    // Helper function to format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString); // Convert to Date object
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  
     const submitHandler = async(e)=>{
         e.preventDefault()
         const res = await fetch(`https://hmsbackend-4388.onrender.com/appointment/edit/${id}`,{

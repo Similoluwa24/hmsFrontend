@@ -74,7 +74,7 @@ function AppointmentList() {
     </thead>
     <tbody className="bg-white">
       {appointment.filter((item) => {
-        return search.toLowerCase() === "" ? item : item.first_name.toLowerCase().includes(search);
+        return search.toLowerCase() === "" ? item : item.first_name.toLowerCase().includes(search) || item.last_name.toLowerCase().includes(search) ;
       }).map((item, index) => (
         <tr key={index} className="border-b border-gray-200 hover:bg-gray-100 transition duration-150">
           {/* <td className="px-6 py-4 font-medium text-gray-800 bg-blue-100">

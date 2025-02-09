@@ -13,7 +13,7 @@ function Header() {
   };
 
   return (
-    <header className=" top-0 left-0 w-full bg-white shadow-lg z-50">
+    <header className=" top-0 left-0 w-full bg-white border-b-2 sticky border-[#007cff] shadow-lg z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo Section */}
         <div className="flex items-center space-x-2">

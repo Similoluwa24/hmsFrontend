@@ -25,7 +25,7 @@ function EditDoctors() {
         setLastName(editDoctors.items.item.last_name)
         setGender(editDoctors.items.item.gender)
         setEmail(editDoctors.items.item.email)
-        setDob(editDoctors.items.item.dob)
+        setDob(formatDate(editDoctors.items.item.dob))
         setPhone(editDoctors.items.item.phone)
         setPhoto(editDoctors.items.item.photo)
         setAddress(editDoctors.items.item.address)
@@ -33,6 +33,16 @@ function EditDoctors() {
         setDepartments(editDoctors.items.item.departments)
     },[editDoctors])
     
+    // Helper function to format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString); // Convert to Date object
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  
+
     // const submitHandler = async(e) =>{
     //   e.preventDefault()
     //   const res = await fetch(`https://hmsbackend-4388.onrender.com/user/admin/update/${id}`,{

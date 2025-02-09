@@ -38,6 +38,9 @@ function DocDetails() {
                                 <h2 className="text-2xl font-bold text-gray-800">{`${details.first_name} ${details.last_name}`}</h2>
                             </div>
                             <div className="space-y-2">
+                                <p className="text-gray-600">
+                                <span className="font-medium text-gray-800">ID: </span>{details.uniqueId}
+                                </p>
                                 <p className="text-gray-600 lowercase">
                                 <span className="font-medium capitalize text-gray-800">Email: </span>{details.email}
                                 </p>
@@ -55,9 +58,6 @@ function DocDetails() {
                                 </p>
                                 <p className="text-gray-600">
                                 <span className="font-medium text-gray-800">School Attended: </span>{details.school}
-                                </p>
-                                <p className="text-gray-600">
-                                <span className="font-medium text-gray-800">ID: </span>{details._id}
                                 </p>
                             </div>
                             </div>

@@ -17,6 +17,7 @@ function CreateDoctors() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [role, setRole] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
  
@@ -37,7 +38,7 @@ function CreateDoctors() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+   setLoading(true)
     const formData = new FormData();
     formData.append('first_name', first_name);
     formData.append('last_name', last_name);
@@ -66,8 +67,17 @@ function CreateDoctors() {
         console.log(data);
         
         // handle response
+        if (!res.ok) {
+          console.log(data);
+          showHide('error',data.message)
+          navigate('/admin/home')
+        } else {
+          
+        }
     } catch (error) {
         console.error(error);
+    }finally{
+      setLoading(false)
     }
 };
 
@@ -162,7 +172,15 @@ function CreateDoctors() {
                 </div>
 
                 <div className="m-auto">
-                <button type="submit" className="text-blue-700 hover:text-white border bg-white w-[200px] border-blue-700 hover:bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Create Doctor</button>
+                <button
+                  type="submit"
+                  className={`w-1/2 py-3 rounded-lg text-white font-medium transition ${
+                    loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+                  }`}
+                  disabled={loading}
+                >
+                  {loading ? "'We're on it...'" : 'Register'}
+                </button>
                 </div>
             </form>
             {/* <Modals>

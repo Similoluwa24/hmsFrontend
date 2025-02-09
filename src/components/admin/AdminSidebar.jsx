@@ -9,10 +9,12 @@ import { GiMedicinePills } from 'react-icons/gi';
 import { TbReceipt2 } from 'react-icons/tb';
 import { AuthContext } from '../../context/AuthContext';
 import useLogout from '../../hooks/useLogout';
+import HospitalContext from '../../context/HospitalContext';
 
 function AdminSidebar() {
   const [isOpen, setIsOpen] = useState(false); // Sidebar toggle state
   const [state, dispatch] = useContext(AuthContext);
+  const {user, loading} = useContext(HospitalContext)
   const logout = useLogout();
 
   const toggleSidebar = () => setIsOpen(!isOpen); // Toggle function
@@ -48,6 +50,9 @@ function AdminSidebar() {
         {/* Navigation Links */}
         <nav className="flex-1 space-y-4 overflow-auto px-2">
           <ul className="space-y-4">
+            <li>
+              <p className="text-gray-400 font-[poppins] text-[15px]">ID: {loading ?'...' : user?.uniqueId}</p>
+            </li>
             <li>
               <Link
                 to="/admin/home"
@@ -86,7 +91,7 @@ function AdminSidebar() {
             </li>
             <li>
               <Link
-                to="/admin/allpharm"
+                to="/admin/records"
                 className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#f0f4ff] hover:text-[#0056b3] transition-all"
               >
                 <GiMedicinePills className="text-xl" />
@@ -102,15 +107,7 @@ function AdminSidebar() {
                 <span className="text-sm">Department</span>
               </Link>
             </li>
-            <li>
-              <Link
-                to="/admin/allinvent"
-                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#f0f4ff] hover:text-[#0056b3] transition-all"
-              >
-                <MdOutlineInventory className="text-xl" />
-                <span className="text-sm">Inventory</span>
-              </Link>
-            </li>
+           
             <li>
               <Link
                 to="/admin/pending"

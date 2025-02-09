@@ -1,178 +1,215 @@
-import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import HospitalContext from '../../context/HospitalContext';
 
 function Diagnosis() {
-    const {user,showHide} = useContext(HospitalContext)
-    const [diagnosis, setDiagnosis] = useState('')
-    const [doctor, setDoctor] = useState('')
-    const [symptoms, setSymptoms] = useState('')
-    const [patient, setPatient] = useState('')
-    const [notes, setNotes] = useState('')
-    const [userId, setUserId] = useState('')
-    const navigate = useNavigate()
+  const { user, showHide } = useContext(HospitalContext);
+  const [uniqueId, setUniqueId] = useState('');
+  const [patient, setPatient] = useState(null); // Stores fetched patient details
+  const [appointment, setAppointment] = useState(null); // Stores fetched appointment details
+  const [diagnosis, setDiagnosis] = useState('');
+  const [symptoms, setSymptoms] = useState('');
+  const [notes, setNotes] = useState('');
+  const navigate = useNavigate();
 
-    const addDiagnosis = async(e)=>{
-        e.preventDefault()
-        const res = await fetch('https://hmsbackend-4388.onrender.com/diagnosis/add',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-                 'Authorization': `Bearer ${localStorage.getItem("user")}`
-            },
-            credentials:'include',
-            body:JSON.stringify({userId,diagnosis,doctor,symptoms,patient,notes})
-        })
-        const data = await res.json()
-        if (!res.ok) {
-            console.log(data);
-            showHide('error',data.errMessage)
-        } else {
-            showHide('success','Diagnosis Added!')
-            navigate('/doctor/home')
+  // Fetch patient and appointment details by card number
+  const fetchPatientDetails = async () => {
+    try {
+      const res = await fetch(`https://hmsbackend-4388.onrender.com/user/details/${encodeURIComponent(uniqueId)}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user')}`
         }
-    }
-    
-    
-  return (
-    <>
-        <div className="bg-gray-50 shadow-lg rounded-2xl p-8 max-w-4xl m-auto my-10 space-y-8">
-    <div className="flex items-center justify-between border-b pb-4 mb-6">
-        <h2 className="text-3xl font-bold text-gray-900">New Diagnosis Form</h2>
-        <Link 
-            to={'/doctor/diagnosis/list'} 
-            className="bg-gradient-to-r from-green-500 to-teal-600 text-white px-5 py-2 rounded-lg shadow-md hover:from-green-600 hover:to-teal-700 transition duration-300"
-        >
-            Back to History
-        </Link>
-    </div>
-
-    <form onSubmit={addDiagnosis} className="bg-white rounded-lg p-6 shadow-md space-y-6">
-
-          {/* Patient ID Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Patient ID</label>
-            <input 
-                type="text" 
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Enter patient ID"
-                onChange={(e)=>{setUserId(e.target.value)}}
-            />
-            {/* <select name="" id=""
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <option value="#">Select User Name</option>
-                {
-                    patient.map((item, index)=>(
-                        <option key={index} value={item._id}>{`${item.first_name} ${item.last_name}`}</option>
-                    ))
-                }
-            </select> */}
-        </div>
-      
+      });
+      const data = await res.json();
+      if (res.ok) {
+        console.log(data);
+        setPatient(data.patient); 
+        setAppointment(data.appointment); 
+        showHide('success', 'Patient details fetched successfully!');
+      } else {
+        showHide('error', data.errMessage || 'Failed to fetch details.');
+        console.log(data);
         
-         {/* Patient Name Field */}
-         <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Patient Name</label>
+      }
+    } catch (error) {
+      console.error(error);
+      showHide('error', 'An error occurred while fetching details.');
+    }
+  };
+  
+
+  const addDiagnosis = async (e) => {
+    e.preventDefault();
+    const payload = {
+      userId: patient?._id, // Use fetched patient ID
+      diagnosis,
+      doctor: user?.id,
+      symptoms,
+      notes,
+      patient: {
+        name: patient?.name,
+        age: patient?.age,
+        relationship: patient?.relationship || "N/A"
+      },
+      appointmentId: appointment?._id // If there's an appointment, link it
+    };
+
+    try {
+      const res = await fetch('https://hmsbackend-4388.onrender.com/diagnosis/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user')}`
+        },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showHide('success', 'Diagnosis added successfully!');
+        navigate('/doctor/home');
+      } else {
+        console.error(data);
+        showHide('error', data.errMessage || 'Failed to add diagnosis.');
+      }
+    } catch (error) {
+      console.error(error);
+      showHide('error', 'An error occurred while adding the diagnosis.');
+    }
+  };
+
+  return (
+    <div className="bg-gray-50 shadow-lg rounded-2xl p-8 max-w-4xl m-auto my-10 space-y-8">
+      <div className="flex items-center justify-between border-b pb-4 mb-6">
+        <h2 className="text-3xl font-bold text-gray-900">New Diagnosis Form</h2>
+        <Link
+          to={'/doctor/diagnosis/list'}
+          className="bg-gradient-to-r from-green-500 to-teal-600 text-white px-5 py-2 rounded-lg shadow-md hover:from-green-600 hover:to-teal-700 transition duration-300"
+        >
+          Back to History
+        </Link>
+      </div>
+
+      <form onSubmit={addDiagnosis} className="bg-white rounded-lg p-6 shadow-md space-y-6">
+        {/* Card Number Field */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Card Number</label>
+          <div className="flex">
             <input
               type="text"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter patient name"
-              onChange={(e) => setPatient({ ...patient, name: e.target.value })}
+              className="flex-grow border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Enter card number"
+              value={uniqueId}
+              onChange={(e) => setUniqueId(e.target.value)}
             />
+            <button
+              type="button"
+              onClick={fetchPatientDetails}
+              className="ml-2 bg-gradient-to-r from-teal-500 to-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:from-teal-600 hover:to-green-700 transition duration-300"
+            >
+              Fetch Details
+            </button>
           </div>
+        </div>
 
-          {/* Patient Age Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Patient Age</label>
-            <input
-              type="number"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter patient age"
-              onChange={(e) => setPatient({ ...patient, age: e.target.value })}
-            />
-          </div>
+        {patient && (
+          <>
+            {/* Auto-Filled Patient Details */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Patient Name</label>
+              <input
+                type="text"
+                value={`${patient?.first_name} ${patient?.last_name}`}
+                disabled
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 bg-gray-100"
+              />
+            </div>
 
-                  {/* Patient Relationship Field */}
-         <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Relationship</label>
-            <input
-              type="text"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter relationship (e.g., daughter, son) If Applicable"
-              onChange={(e) => setPatient({ ...patient, relationship: e.target.value })}
-            />
-          </div>
+            {/* <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Age</label>
+              <input
+                type="number"
+                value={patient?.age}
+                disabled
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 bg-gray-100"
+              />
+            </div> */}
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Relationship</label>
+              <input
+                type="text"
+                value={patient?.relationship || "N/A"}
+                disabled
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 bg-gray-100"
+              />
+            </div>
+
+            {appointment ? (
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">Appointment Details</label>
+                        <textarea
+                        value={`Date: ${appointment.date}\nReason: ${appointment.message}`}
+                        disabled
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 bg-gray-100"
+                        rows="2"
+                        ></textarea>
+                    </div>
+                    ) : (
+                    <p className="text-sm text-red-500">No appointment found. Proceeding with emergency diagnosis.</p>
+                    )}
+
+          </>
+        )}
+
         {/* Diagnosis Field */}
         <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Diagnosis</label>
-            <input 
-                type="text" 
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                placeholder="Enter diagnosis"
-                onChange={(e)=>{setDiagnosis(e.target.value)}}
-            />
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Diagnosis</label>
+          <input
+            type="text"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            placeholder="Enter diagnosis"
+            value={diagnosis}
+            onChange={(e) => setDiagnosis(e.target.value)}
+          />
         </div>
 
-        {/* Doctor Field */}
+        {/* Symptoms Field */}
         <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Doctor</label>
-            <input 
-                type="text"
-                value={`Dr. ${user?.first_name}  ${user?.last_name}`}
-                disabled
-                className="w-full border border-gray-300 capitalize rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                placeholder="Enter doctor's name"
-                onChange={(e)=>{setDoctor(e.target.value)}}
-            />
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Symptoms</label>
+          <textarea
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            rows="3"
+            placeholder="Describe the symptoms"
+            value={symptoms}
+            onChange={(e) => setSymptoms(e.target.value)}
+          ></textarea>
         </div>
-
-        {/* Treatment Plan Field */}
-        <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Symptoms</label>
-            <textarea 
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                rows="3"
-                placeholder="Describe the Symptoms"
-                onChange={(e)=>{setSymptoms(e.target.value)}}
-            ></textarea>
-        </div>
-
-        {/* Medications Field */}
-       {/* <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Medications</label>
-            <input 
-                type="text" 
-                onChange={(e)=>{setMedication(e.target.value)}}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                placeholder="List medications (comma-separated)"
-            />
-        </div> */}
 
         {/* Notes Field */}
         <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Notes</label>
-            <textarea 
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                rows="4"
-                placeholder="Additional notes or observations"
-                onChange={(e)=>{setNotes(e.target.value)}}
-            ></textarea>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Notes</label>
+          <textarea
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            rows="4"
+            placeholder="Additional notes or observations"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          ></textarea>
         </div>
 
         {/* Submit Button */}
         <div className="text-right">
-            <button 
-                type="submit" 
-                className="bg-gradient-to-r from-teal-500 to-green-600 text-white px-6 py-2 rounded-lg shadow-md hover:from-teal-600 hover:to-green-700 transition duration-300"
-            >
-                Submit Diagnosis
-            </button>
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-teal-500 to-green-600 text-white px-6 py-2 rounded-lg shadow-md hover:from-teal-600 hover:to-green-700 transition duration-300"
+          >
+            Submit Diagnosis
+          </button>
         </div>
-    </form>
-</div>
-
-    </>
-  )
+      </form>
+    </div>
+  );
 }
 
-export default Diagnosis
+export default Diagnosis;

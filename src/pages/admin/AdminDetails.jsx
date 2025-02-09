@@ -37,6 +37,9 @@ function AdminDetails() {
                             </div>
                             <div className="space-y-2">
                                 <p className="text-gray-600">
+                                <span className="font-medium text-gray-800">Card Number: </span>{details.uniqueId || 'N/A'}
+                                </p>
+                                <p className="text-gray-600">
                                 <span className="font-medium text-gray-800">Email: </span>{details.email}
                                 </p>
                                 <p className="text-gray-600">

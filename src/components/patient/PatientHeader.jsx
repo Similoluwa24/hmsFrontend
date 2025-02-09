@@ -70,7 +70,7 @@ const getInitials = (firstName, lastName)=>{
                 <p className="mt-2 font-semibold text-gray-700">
                   {user?.first_name} {user?.last_name}
                 </p>
-                <p className="text-sm text-gray-500">{user?.email}</p>
+                <p className="text-sm text-gray-500">{user?.uniqueId}</p>
               </div>
               <ul className="py-2 text-gray-700">
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">

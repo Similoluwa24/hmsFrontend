@@ -19,11 +19,13 @@ export const HospitalProvider = ({children})=>{
     const [alluser, setallUser]  = useState([])
     const [appoint, setAppoint] = useState([])
     const [appointmentbyDoctor,  setAppointmentbyDoctor] = useState([])
+    const [records, setRecords] = useState([]);
     const [state, dispatch] =  useContext(AuthContext);
     const isAuthenticated = state.user !== null
     const token = Cookies.get('token') 
     const tokens = localStorage.getItem('user')
     const navigate = useNavigate()
+    
     // console.log(tokens);
     
     const {alertInfo, showHide} = useAlert()
@@ -32,7 +34,7 @@ export const HospitalProvider = ({children})=>{
         fetchUserAll()
         getallDepartment()
         getallApointment()
-        getallPharmacy()
+         getallPharmacy()
         getInventory()
         getAppointmentById();
         getAppointmentbyDoctor();
@@ -93,6 +95,8 @@ export const HospitalProvider = ({children})=>{
     }
   } catch (error) {
     console.log({ message: error.message });
+  }finally{
+    setLoading(false)
   }
 };
 
@@ -148,6 +152,31 @@ export const HospitalProvider = ({children})=>{
         
       }   
     }
+
+          const getallPharmacy = async () => {
+            try {
+              const res = await fetch(`https://hmsbackend-4388.onrender.com/pharmacy/meds`, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("user")}`,
+                },
+                credentials: "include",
+              });
+      
+              const data = await res.json();
+              if (!res.ok) {
+                console.error("Error fetching pharmacy records", data);
+              } else {
+                console.log(data);
+                
+                setRecords(data.data); // Set fetched data to state
+              }
+            } catch (error) {
+              console.error("Network error:", error);
+            }
+          };
+
 
     const getallApointment = async () => {
       try {
@@ -220,7 +249,7 @@ export const HospitalProvider = ({children})=>{
                     console.error('Error response:', data);
                 } else {
                     setAppointmentbyDoctor(data.appointments); // Adjust based on the data structure
-                    // console.log('Appointments data:', data);
+                    console.log('Appointments data:', data);
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -228,30 +257,30 @@ export const HospitalProvider = ({children})=>{
         };
 
 
-    const getallPharmacy = async () => {
-      try {
-        const res = await fetch('https://hmsbackend-4388.onrender.com/pharmacy/meds',{
-          method:'GET',
-          headers:{
-            'Content-Type':'application/json',
-            'Authorization': `Bearer ${localStorage.getItem("user")}`
-          },
-          credentials:'include',
-        })
-        const data = await res.json()
-        if (!res.ok) {
-          console.log(data);       
-        } else {
-          setPharmacy(data.meds)
-          // console.log(data);
+    // const getallPharmacy = async () => {
+    //   try {
+    //     const res = await fetch('https://hmsbackend-4388.onrender.com/pharmacy/meds',{
+    //       method:'GET',
+    //       headers:{
+    //         'Content-Type':'application/json',
+    //         'Authorization': `Bearer ${localStorage.getItem("user")}`
+    //       },
+    //       credentials:'include',
+    //     })
+    //     const data = await res.json()
+    //     if (!res.ok) {
+    //       console.log(data);       
+    //     } else {
+    //       setPharmacy(data.meds)
+    //       // console.log(data);
              
-        }
+    //     }
         
-      } catch (error) {
-        console.log({message:error.message});
+    //   } catch (error) {
+    //     console.log({message:error.message});
         
-      }
-    }
+    //   }
+    // }
     const getInventory = async () => {
       const res = await fetch(`https://hmsbackend-4388.onrender.com/inventory/admin/get`,{
         method:'GET',
@@ -339,9 +368,10 @@ export const HospitalProvider = ({children})=>{
             alluser,
             doctors,
             faq,
+            loading,
             department,
             patient,
-            pharmacy,
+            records,
             inventory,
             editPatient,
             appointment,

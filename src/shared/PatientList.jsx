@@ -73,7 +73,7 @@ function PatientList() {
             }).map((item, index) => (
               <tr key={index} className="border-b border-gray-200 hover:bg-gray-100 transition duration-150">
                 <td className="px-6 py-4 font-medium text-gray-800 bg-blue-100">
-                  {item._id}
+                  {item.uniqueId}
                 </td>
                 <td className="px-6 py-4 capitalize">
                   {`${item.first_name} ${item.last_name}`}
